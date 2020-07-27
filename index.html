@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title></title>
+	<style type="text/css">
+		*{
+			font-family: Helvetica;
+			margin: 0px;
+			padding: 0px;
+		}
+		input{
+			height: 30px;
+			line-height:30px;
+			padding: 0px 10px;
+		}
+		.container{
+			width: 500px;
+			margin: 0 auto;
+			text-align: center;
+			background: #CECECE;
+			min-height: 600px;
+		}
+		.input{
+			margin:10px;
+		}
+		tr:nth-child(even) {background-color: #f2f2f2;}
+
+	</style>
+</head>
+<body>
+	<div class="container">
+	<h1>TODO LIST</h1>
+	<div class="input">
+		<input type="text" name="name" id="name"  class="input" />
+			<input type="submit" name="submit" id="submit" value="Add" />
+				<input type="submit" name="update" id="update" value="Update" />
+	</div>
+	<div class="list">
+	<table width="500" id="task_table">
+	<tr>
+		<th>Serial</th>
+		<th>Tasks</th>
+		<th>Options</th>
+	</tr>	
+	</table>
+	</div>
+</div>
+
+
+
+<!-- <form method="get" action="?" id="signup" onsubmit="return false">
+	<table>
+		<tr>
+			<td>Roll#:</td>
+			<td><input type="text" name="roll" id="input_roll" required /></td>
+		</tr>
+		<tr>
+			<td>name:</td>
+			<td><input type="text" name="name" id="input_name" required /></td>
+		</tr>
+		<tr>
+			<td>Standard:</td>
+			<td><input type="text" name="Standard" id="input_standard" required /></td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<input type="submit" name="submit" id="submit" value="Add" />
+				<input type="submit" name="update" id="update" value="Update" />
+			</td>
+		</tr>
+	</table>
+</form> -->
+<script type="text/javascript">
+		
+let students = [
+{
+	id:1,
+	task: "Task1",
+},
+];
+
+let table = document.getElementById('task_table'),rIndex;
+
+students.map((task, index) => {
+	table.innerHTML += `<tr>
+							<td>${index + 1}</td>
+							<td>${task.task}</td>
+
+							<td>
+							<button onClick="editRow(this)">Edit</button>
+							<button onClick="deleteRow(this)">Delete</button>
+							</td>
+						</tr>
+						`;
+})
+
+
+let name = document.getElementById('name');
+
+
+function deleteRow(element){
+	var row = element.parentNode.parentNode;
+	row.parentNode.removeChild(row);
+}
+
+function editRow(element){
+	var row = element.parentNode.parentNode;
+	rIndex = row.cells[0].innerHTML;
+	name.value = row.cells[1].innerHTML;
+}
+
+
+let update = document.getElementById('update');
+update.addEventListener('click', updateRow);
+
+function updateRow(element){
+	table.rows[rIndex].cells[1].innerHTML = name.value;
+	name.value = "";
+}
+
+
+
+let submit = document.getElementById('submit');
+submit.addEventListener('click', addRow);
+
+function addRow(){
+	table.innerHTML += `<tr>
+							<td>${table.rows.length}</td>
+							<td>${name.value}</td>
+							<td>
+							<button onClick="editRow(this)">Edit</button>
+							<button onClick="deleteRow(this)">Delete</button>
+							</td>
+						</tr>
+						`;
+	name.value = "";
+}
+
+	</script>
+</body>
+</html>
